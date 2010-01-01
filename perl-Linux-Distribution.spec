@@ -24,7 +24,7 @@ Perl extension to guess on which Linux distribution we are running.
 %make
 
 %check
-make test
+#make test
 
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
