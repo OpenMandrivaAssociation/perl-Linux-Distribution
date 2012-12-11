@@ -4,13 +4,14 @@
 Summary:	Mudule for Linux distribution
 Name:		perl-%{upstream_name}
 Version:	%perl_convert_version %{upstream_version}
-Release:	%mkrel 1
-License:        GPL+ or Artistic
+Release:	2
+License:	GPL+ or Artistic
 Group:		Development/Perl
 Url:		http://search.cpan.org/dist/%{upstream_name}
 Source0:	http://www.cpan.org/modules/by-module/LINUX/%{upstream_name}-%{upstream_version}.tar.gz
+
+BuildRequires:	perl-devel
 BuildArch:	noarch
-BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 Perl extension to guess on which Linux distribution we are running.
@@ -19,22 +20,29 @@ Perl extension to guess on which Linux distribution we are running.
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-
+perl Makefile.PL INSTALLDIRS=vendor
 %make
 
 %check
 #make test
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc README Changes
 %{perl_vendorlib}/Linux
 %{_mandir}/man3/*
+
+
+%changelog
+* Mon Dec 06 2010 Guillaume Rousse <guillomovitch@mandriva.org> 0.200.0-1mdv2011.0
++ Revision: 612366
+- new version
+
+* Fri Jan 01 2010 Tomasz Pawel Gajc <tpg@mandriva.org> 0.140_100-1mdv2011.0
++ Revision: 484901
+- disable tests because they fails on chroot
+- import perl-Linux-Distribution
+
+
